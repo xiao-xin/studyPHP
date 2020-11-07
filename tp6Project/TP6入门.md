@@ -79,5 +79,28 @@ composer reuiqre topthink/think-multi-app
 Route::rule('nihao','index/hello','get');
 ```
 
-## 架构分层
-解耦
+## 五层架构分层
+架构的目的就是解耦，统一规范，提高开发速度。
+
+之前我们的项目都是MVC三层，但是很多的操作都是放在控制器，导致控制器的代码非常的多，代码复用非常少。应该分层，把控制器中的代码转义到其他层。
+
+这里我们提供5层架构，首先是控制器层Controller,主要是接收客户的请求，然后控制器不是直接调用Model层，而是调用业务逻辑层Business，比如数组的组装就在这层操作，设计到一些基础库公共的部分，我们调用基础库Lib层。业务操作肯定会调用数据库，这把这些代码放在模型层，最后层层返回到控制器，最后由控制器调用View中的模板渲染返回给客户端。
+
+```
+#架构流程如下图所示：
+Request -> Controller -> Business ->Model,Lib ->... ->View -> Response
+```
+model,business,lib这些目录我们放在common公共模块下，方便其他模块也可以调用。目录结构如下：
+www
+├─app    
+│  ├─common         
+│  │  ├─common.php     
+│  │  ├─business
+│  │  ├─lib
+│  │  ├─model     
+│  │  │  ├─mysql     
+│  │  │  ├─es     
+│  │  │  ├─redis     
+
+
+## 异常处理
