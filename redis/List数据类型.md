@@ -53,3 +53,87 @@ list底层是一个链表，左边右边都可以插入值到链表中。
 ### List应用
 1. 消息队列 （lpush,rpop）
 2. 栈(lpush,lpop)
+
+## Set数据结构
+
+set数据结构，是无须的，元素不可以重复。
+
+具体的知识点可以看下文章之类的。
+
+### Set常用的命令
+
+新增
+```bash
+sadd set1 "wang" "chen"
+```
+
+查询
+```bash
+#返回集合中的所有元素
+smembers set1
+#查看集合中是否有指定的元素
+sismember set1 "wang"
+#查看集合中的元素个数
+scard set1 
+#随机中集合中取出几个元素
+srangemember set1 2
+```
+
+删除
+```bash
+#随机删除几个元素
+spop set1 2 
+#删除指定元素
+srem set1 "chen" "tao"
+#移除指定元素到另一个集合中
+smove set1 set2 "one"
+```
+
+交集、并集
+```bash
+#set1集合和set2集合的差集
+sdiff set1 set2
+#求集合的交集
+sinter set1 set2
+#集合的并集
+sunion set1 set2
+```
+交集和并集可以求共同的好友，具体的用法后面再说。
+
+## Hash
+hash也是集合，只不过这种结合可以存储key-value 。
+
+### Hash常用的命令
+
+新增
+```bash
+hset user:1 name "jack" 
+#批量设置
+hset user:1  name "jack" age  "25"
+hsetnx user:1 age 27
+```
+
+修改
+```bash
+hincrby user:1 age 1
+```
+
+查找
+```bash
+#获取所有的field和value
+hgetall user:1
+#获取所有的key
+hkeys user:1
+#获取所有的value
+hvals user:1
+hexists user:1 age
+#获取所有字段的数量
+hlen user:1
+```
+
+删除
+```bash
+#删除指定的field
+hdel user:1 age 
+```
+
