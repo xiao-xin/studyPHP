@@ -69,3 +69,33 @@ ps -ef | grep redis
 228  ps -ef | grep redis
 systemctl enable redis.service
 ```
+
+
+设置密码
+```bash
+vim redis.conf
+# 把#去掉并设置密码
+requirepass 123456
+
+# 重启
+systemctl restart redis
+
+# 进入redis-cli后
+# 使用命令登录后才可以执行命令
+auth 123456
+```
+
+常用配置
+
+Redis的配置文件
+Redis支持很多的参数，但都有默认值。
+* daemonize默认情况下，redis不是在后台运行的，如果需要在后台运行，把该项的值更改为yes。
+* bind指定Redis只是收来自于该IP地址的请求。
+* port监听端口，默认为6379。
+* databases设置数据库的个数，默认使用的数据库是0。
+* save设置Redis进行数据库镜像的频率。
+* dbfilename镜像备份文件的文件名。
+* dir数据库镜像备份的文件放置的路径。
+* requirepass设置客户端连接后进行任何其他指定前需要使用的密码。
+* maxclients限制同时连接的客户数量。
+* maxmemory设置redis能够使用的最大内存。
